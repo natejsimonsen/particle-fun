@@ -1,0 +1,25 @@
+:root {
+  --dark: #24273a;
+  --light: #f4dbd6;
+}
+
+body {
+  background-color: var(--dark);
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: var(--light);
+  font-family: Ubuntu, sans-serif;
+  text-align: center;
+}
