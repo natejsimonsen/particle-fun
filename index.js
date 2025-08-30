@@ -3,8 +3,8 @@ import BoundingBox from "./BoundingBox.js";
 const canvas = document.getElementById("canvas");
 
 function resize(_) {
-  canvas.width = window.innerWidth * 0.8;
-  canvas.height = window.innerHeight * 0.8;
+  canvas.width = window.innerWidth * 0.95;
+  canvas.height = window.innerHeight * 0.85;
 }
 resize();
 window.addEventListener("resize", resize);
@@ -15,9 +15,9 @@ const letterBoxes = [];
 
 let letterOpacity = 0;
 
-function drawH(x, y) {
-  const width = 20;
-  const height = 200;
+function drawH(x, y, scale) {
+  const width = 20 * scale;
+  const height = 200 * scale;
 
   // left pillar
   letterBoxes.push(new BoundingBox(x, y, width, height, letterOpacity));
@@ -39,9 +39,9 @@ function drawH(x, y) {
   );
 }
 
-function drawh(x, y) {
-  const width = 20;
-  const height = 200;
+function drawh(x, y, scale) {
+  const width = 20 * scale;
+  const height = 200 * scale;
 
   // left pillar
   letterBoxes.push(new BoundingBox(x, y, width, height, letterOpacity));
@@ -69,9 +69,9 @@ function drawh(x, y) {
   );
 }
 
-function drawA(x, y) {
-  const width = 20;
-  const height = 100;
+function drawA(x, y, scale) {
+  const width = 20 * scale;
+  const height = 100 * scale;
 
   // left pillar
   letterBoxes.push(new BoundingBox(x, y, width, height, letterOpacity));
@@ -98,9 +98,9 @@ function drawA(x, y) {
   );
 }
 
-function drawN(x, y) {
-  const width = 20;
-  const height = 100;
+function drawN(x, y, scale) {
+  const width = 20 * scale;
+  const height = 100 * scale;
 
   // left pillar
   letterBoxes.push(new BoundingBox(x, y, width, height, letterOpacity));
@@ -116,12 +116,6 @@ function drawN(x, y) {
   );
 }
 
-let startX = (canvas.width - 710) / 2;
-let startY = (canvas.height - 250) / 2;
-let snowBox = undefined;
-
-function init() {}
-
 function drawLetterBoxes() {
   letterBoxes.forEach((boundingBox) => {
     if (boundingBox.particles.length != 0) return;
@@ -129,37 +123,40 @@ function drawLetterBoxes() {
   });
 }
 
-init();
-
 let timer = 0; // stupid timer variable
 const maxOpacity = 0.2;
+const scale = canvas.width > 1000 ? 2 : 0.4;
+let startX = (canvas.width - 710 * scale) / 2;
+let startY = (canvas.height - 250 * scale) / 2;
+
+console.log();
 
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   switch (timer) {
     case 0:
-      drawH(startX, startY);
+      drawH(startX, startY, scale);
       drawLetterBoxes();
       break;
     case 60:
-      drawA(startX + 150, startY + 100);
+      drawA(startX + 150 * scale, startY + 100 * scale, scale);
       drawLetterBoxes();
       break;
     case 120:
-      drawN(startX + 260, startY + 100);
+      drawN(startX + 260 * scale, startY + 100 * scale, scale);
       drawLetterBoxes();
       break;
     case 180:
-      drawN(startX + 370, startY + 100);
+      drawN(startX + 370 * scale, startY + 100 * scale, scale);
       drawLetterBoxes();
       break;
     case 240:
-      drawA(startX + 480, startY + 100);
+      drawA(startX + 480 * scale, startY + 100 * scale, scale);
       drawLetterBoxes();
       break;
     case 300:
-      drawh(startX + 590, startY);
+      drawh(startX + 590 * scale, startY, scale);
       drawLetterBoxes();
       break;
   }
